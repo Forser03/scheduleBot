@@ -3,7 +3,7 @@ from telebot import types
 import psycopg2
 from datetime import date
 
-bot = telebot.TeleBot(open("D:/PythonWorks/API_keys/m_bin2311_bot.txt").readline())
+bot = telebot.TeleBot(open("apiKey.txt").readline())
 connection = psycopg2.connect(database="schedule",
                               user="postgres",
                               password="12345678",
