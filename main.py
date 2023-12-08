@@ -1,6 +1,5 @@
-import telebot
+import telebot, psycopg2
 from telebot import types
-import psycopg2
 from datetime import date
 
 bot = telebot.TeleBot(open("apiKey.txt").readline())
@@ -45,12 +44,12 @@ def restart(message_id):
 
 
 def help_msg(message_id):
-    bot.send_message(message_id, """Этот бот создан для отображения расписания ВУЗа МТУСИ. Доступные комманды:
+    bot.send_message(message_id, """Этот бот создан для отображения расписания ВУЗа МТУСИ. Доступные команды:
 /start - перезапуск бота
 /help - отображение этого сообщения
 /week - отображение чётности текущей недели
 /mtuci - ссылка на сайт МТУСИ
-Большенство действий удобно выполнять при помощи кнопок под полем ввода сообщения""")
+Большинство действий удобно выполнять при помощи кнопок под полем ввода сообщения""")
 
 
 def error_enter(message_id):
@@ -98,7 +97,7 @@ def answer(message):
         keyboard.add("Текущая неделя")
         keyboard.add("Следующая неделя")
         keyboard.add("Вернуться в главное меню")
-        msg = bot.send_message(message.chat.id, f"Сейчас {'чётная' if is_even else 'нечётная'} неделя. "
+        msg = bot.send_message(message.chat.id, f"Сейчас {'чётная' if is_even() else 'нечётная'} неделя. "
                                                 f"На какую неделю Вы хотите увидеть расписание: ",
                                                 reply_markup=keyboard)
         bot.register_next_step_handler(msg, process_week)
